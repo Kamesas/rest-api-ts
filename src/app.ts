@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 
 const app: Express = express();
-app.use(express.json());
 
 const connectDB = async () => {
   try {
@@ -16,6 +15,10 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+app.use(express.json());
+
+/** Routes */
 
 app.route('/users').get((req: Request, res: Response) => {
   console.log('db', connectDB);
@@ -40,6 +43,20 @@ app
       }
     });
   });
+
+/** Healthcheck */
+app.get('/ping', (req, res, next) => res.status(200).json({ hello: 'world' }));
+
+/** Error handling */
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+
+  console.log('error', error);
+
+  res.status(404).json({
+    message: error.message
+  });
+});
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

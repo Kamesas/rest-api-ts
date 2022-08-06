@@ -2,7 +2,7 @@
   "name": "ts-api",
   "version": "1.0.0",
   "description": "rest api with ts",
-  "main": "index.js",
+  "main": "src/app.ts",
   "dependencies": {
     "chalk": "^5.0.1",
     "dotenv": "^16.0.1",
@@ -17,6 +17,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
+    "postinstall": "tsc",
     "start": "node build/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "npx tsc"
