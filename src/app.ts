@@ -1,5 +1,6 @@
-import express, { Express, Request, Response, Router } from 'express';
+import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import workoutRoutes from './routes/workout';
 import 'dotenv/config';
 
 const app: Express = express();
@@ -19,6 +20,7 @@ connectDB();
 app.use(express.json());
 
 /** Routes */
+app.use('/workout', workoutRoutes);
 
 app.route('/users').get((req: Request, res: Response) => {
   console.log('db', connectDB);
