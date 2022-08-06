@@ -1,7 +1,21 @@
 import express, { Express, Request, Response } from "express";
+import mongoose from "mongoose";
+import "dotenv/config";
 
 const app: Express = express();
 app.use(express.json());
+
+const connectDB = async () => {
+  try {
+    const url = process.env?.MONGO_DB_URI || ''; // prettier-ignore
+    await mongoose.connect(url);
+    console.log("DB connected!");
+  } catch (error) {
+    console.log("DB connect failure!", error);
+  }
+};
+
+connectDB();
 
 app
   .route("/user")
